@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "815038781141",
+    "firebase_url": "https://balistos-be.firebaseio.com",
+    "project_id": "balistos-be",
+    "storage_bucket": "balistos-be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815038781141:android:27cb8308027c8b12",
+        "android_client_info": {
+          "package_name": "com.balistos.balistos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815038781141-43qukqjivutef9bgekr2jmsarhcpria1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-2hx-NqmEzBUNNLRKISUfLxylg2wEfzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815038781141-43qukqjivutef9bgekr2jmsarhcpria1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "815038781141-m8fucn38k7s3v6u1aun5lbvj63dhkke1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.balistos.balistos"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

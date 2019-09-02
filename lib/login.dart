@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginRoute extends StatefulWidget {
   LoginRoute({Key key, this.title}) : super(key: key);
@@ -14,15 +16,61 @@ class LoginRoute extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+class _LoginData {
+  String email = '';
+  String password = '';
+}
+
 class _MyHomePageState extends State<LoginRoute> {
+  final _formKey = GlobalKey<FormState>();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  FirebaseUser user;
+  _LoginData _data = new _LoginData();
   TextStyle style =
       TextStyle(fontFamily: 'Open Sans', fontSize: 20.0, color: Colors.black);
 
+  void _handleSignIn() async {
+    print(_formKey.currentState);
+    _formKey.currentState.save();
+    final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
+      email: _data.email,
+      password: _data.password,
+    ));
+    setState(() {
+      this.user = user;
+    });
+  }
+
+  Future<FirebaseUser> _handleGoogleSignIn() async {
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final FirebaseUser user =
+        (await _auth.signInWithCredential(credential));
+    print("signed in " + user.displayName);
+    setState(() {
+      this.user = user;
+    });
+    return user;
+    
+  }
+
   @override
   Widget build(BuildContext context) {
-    final emailField = TextField(
+    final emailField = TextFormField(
       obscureText: false,
       style: style,
+      onSaved: (String value) {
+        this._data.email = value;
+      },
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(11.0, 10.0, 11.0, 10.0),
         hintText: "Username",
@@ -35,9 +83,12 @@ class _MyHomePageState extends State<LoginRoute> {
         ),
       ),
     );
-    final passwordField = TextField(
+    final passwordField = TextFormField(
       obscureText: true,
       style: style,
+      onSaved: (String value) {
+        this._data.password = value;
+      },
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(11.0, 10.0, 11.0, 10.0),
         hintText: "Password",
@@ -51,42 +102,50 @@ class _MyHomePageState extends State<LoginRoute> {
       ),
     );
     final loginButon = RaisedButton(
-      elevation: 5.0,
-      color: Color.fromARGB(255,177, 187, 0),
-      child: Text("Submit", style: TextStyle(color: Colors.white),),
-      onPressed: () => print("logging in"),
-      
-    );
+        elevation: 5.0,
+        color: Color.fromARGB(255, 177, 187, 0),
+        child: Text(
+          "Submit",
+          style: TextStyle(color: Colors.white),
+        ),
+        onPressed: _handleSignIn);
+
+    final googleLoginButon = RaisedButton(
+        elevation: 5.0,
+        color: Color.fromARGB(255, 177, 187, 0),
+        child: Text(
+          "Google login",
+          style: TextStyle(color: Colors.white),
+        ),
+        onPressed: _handleGoogleSignIn);
 
     return Scaffold(
-      body: Center(
-        child: Container(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(36.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  height: 155.0,
-                  child: Image.asset(
-                    "assets/images/logo.png",
-                    fit: BoxFit.contain,
+      body: Form(
+        key: _formKey,
+        child: Center(
+          child: Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(36.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(this.user != null ? this.user.email : ""),
+                  SizedBox(height: 45.0),
+                  emailField,
+                  SizedBox(height: 25.0),
+                  passwordField,
+                  SizedBox(
+                    height: 35.0,
                   ),
-                ),
-                SizedBox(height: 45.0),
-                emailField,
-                SizedBox(height: 25.0),
-                passwordField,
-                SizedBox(
-                  height: 35.0,
-                ),
-                loginButon,
-                SizedBox(
-                  height: 15.0,
-                ),
-              ],
+                  loginButon,
+                  googleLoginButon,
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

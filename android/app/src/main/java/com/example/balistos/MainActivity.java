@@ -1,4 +1,4 @@
-package com.example.balistos;
+package com.balistos.balistos;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
