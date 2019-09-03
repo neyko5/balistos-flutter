@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+
+import 'appBar.dart';
+import 'models/state.model.dart';
 
 class LoginRoute extends StatefulWidget {
   LoginRoute({Key key, this.title}) : super(key: key);
@@ -53,14 +57,10 @@ class _MyHomePageState extends State<LoginRoute> {
       idToken: googleAuth.idToken,
     );
 
-    final FirebaseUser user =
-        (await _auth.signInWithCredential(credential));
+    final FirebaseUser user = (await _auth.signInWithCredential(credential));
     print("signed in " + user.displayName);
-    setState(() {
-      this.user = user;
-    });
+    Provider.of<StateModel>(context, listen: false).setUser(user);
     return user;
-    
   }
 
   @override
@@ -120,6 +120,7 @@ class _MyHomePageState extends State<LoginRoute> {
         onPressed: _handleGoogleSignIn);
 
     return Scaffold(
+      appBar: BalistosAppBar(),
       body: Form(
         key: _formKey,
         child: Center(

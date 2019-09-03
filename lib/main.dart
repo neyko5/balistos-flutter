@@ -1,7 +1,12 @@
+import 'package:balistos/models/state.model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'appBar.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(ChangeNotifierProvider(
+      builder: (context) => StateModel(),
+      child: MyApp(),
+    ));
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -56,7 +61,18 @@ class HomePage extends StatelessWidget {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text("Home route")],
+          children: [
+            Consumer<StateModel>(
+              builder: (context, state, child) {
+                return (state.loggedInUser != null
+                    ? Column(children: <Widget>[
+                        Text("Logged in as ${state.loggedInUser.displayName}"),
+                        Image.network(state.loggedInUser.photoUrl)
+                      ])
+                    : Text("Logged in user: ${state.loggedInUser}"));
+              },
+            )
+          ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
