@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>815038781141-m8fucn38k7s3v6u1aun5lbvj63dhkke1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.815038781141-m8fucn38k7s3v6u1aun5lbvj63dhkke1</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>815038781141-pafcm1vs5n27n9i7mb8iik4qhkeqcshi.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDlb2siW3nqFWNYzfEpwllJ-4AhZQOwvgQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>815038781141</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.balistos.balistos</string>
+	<key>PROJECT_ID</key>
+	<string>balistos-be</string>
+	<key>STORAGE_BUCKET</key>
+	<string>balistos-be.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:815038781141:ios:27cb8308027c8b12</string>
+	<key>DATABASE_URL</key>
+	<string>https://balistos-be.firebaseio.com</string>
+</dict>
+</plist>

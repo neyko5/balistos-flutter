@@ -1,7 +1,10 @@
+import 'package:balistos/models/playlist.model.dart';
 import 'package:balistos/models/state.model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'appBar.dart';
+import 'components/PlaylistItem.dart';
 
 void main() => runApp(ChangeNotifierProvider(
       builder: (context) => StateModel(),
@@ -24,6 +27,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
+        fontFamily: "Open Sans",
         primarySwatch: Colors.blue,
       ),
       home: new HomePage(),
@@ -60,16 +64,51 @@ class HomePage extends StatelessWidget {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Consumer<StateModel>(
               builder: (context, state, child) {
-                return (state.loggedInUser != null
-                    ? Column(children: <Widget>[
-                        Text("Logged in as ${state.loggedInUser.displayName}"),
-                        Image.network(state.loggedInUser.photoUrl)
-                      ])
-                    : Text("Logged in user: ${state.loggedInUser}"));
+                return Column(children: <Widget>[
+                  Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/back.png'),
+                          fit: BoxFit.cover),
+                    ),
+                    child: null,
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                      stream: Firestore.instance
+                          .collection('playlists')
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError)
+                          return new Text('Error: ${snapshot.error}');
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading...');
+                          default:
+                            return new Container(
+                                color: Color.fromARGB(255, 234, 234, 234),
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: snapshot.data.documents
+                                      .map((DocumentSnapshot document) {
+                                    return new PlaylistItem(
+                                        playlist: new Playlist(
+                                            document['id'],
+                                            document['title'],
+                                            document['description']),
+                                        playlistIndex: snapshot.data.documents
+                                                .indexOf(document) +
+                                            1);
+                                  }).toList(),
+                                ));
+                        }
+                      })
+                ]);
               },
             )
           ],
