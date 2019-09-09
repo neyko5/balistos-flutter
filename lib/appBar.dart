@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
-import 'main.dart';
+import 'pages/login.dart';
+import 'pages/home.dart';
 import 'package:provider/provider.dart';
 import 'package:balistos/models/state.model.dart';
 

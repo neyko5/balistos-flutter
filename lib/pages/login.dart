@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-
-import 'appBar.dart';
-import 'models/state.model.dart';
+import '../appBar.dart';
+import '../models/state.model.dart';
 
 class LoginRoute extends StatefulWidget {
   LoginRoute({Key key, this.title}) : super(key: key);
@@ -36,7 +35,6 @@ class _MyHomePageState extends State<LoginRoute> {
       TextStyle(fontFamily: 'Open Sans', fontSize: 20.0, color: Colors.black);
 
   void _handleSignIn() async {
-    print(_formKey.currentState);
     _formKey.currentState.save();
     final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
       email: _data.email,

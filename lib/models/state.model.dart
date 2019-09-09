@@ -3,9 +3,16 @@ import 'package:flutter/material.dart';
 
 class StateModel extends ChangeNotifier {
   FirebaseUser loggedInUser;
+  String playlistFilter = "";
+  int currentTabIndex = 0;
 
   StateModel() {
     getUserSession();
+  }
+
+  void setCurrentTabIndex(int index) {
+    currentTabIndex = index;
+    notifyListeners();
   }
 
   void getUserSession() async {
@@ -15,6 +22,11 @@ class StateModel extends ChangeNotifier {
       loggedInUser = user;
       notifyListeners();
     }
+  }
+
+  void updatePlaylistFilter(filter) {
+    playlistFilter = filter;
+    notifyListeners();
   }
 
   /// Adds [item] to cart. This is the only way to modify the cart from outside.
