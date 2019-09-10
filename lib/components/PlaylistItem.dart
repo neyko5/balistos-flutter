@@ -16,11 +16,10 @@ class PlaylistItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return new InkWell(
       onTap: () {
-        print(playlist.id);
+        final page = DetailPage(playlistId: this.playlist.id);
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => DetailPage(playlistId: this.playlist.id)),
+          MaterialPageRoute(builder: (context) => page),
         );
       },
       child: Container(

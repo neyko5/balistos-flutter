@@ -1,4 +1,5 @@
 import 'package:balistos/components/PlaylistMain.dart';
+import 'package:balistos/components/YoutubeResult.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -108,36 +109,45 @@ class SearchSectionState extends State<SearchSection> {
   YoutubeAPI ytApi = new YoutubeAPI(key);
   List ytResult = [];
 
-  void search() async {
-    String query = "Flutter";
+  void search(String query) async {
     var result = await ytApi.search(query);
     setState(() {
       ytResult = result;
     });
-    print(ytResult);
   }
 
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        RaisedButton(
-          child: Text("Search"),
-          onPressed: () {
-            search();
-          },
-        ),
-        ...ytResult
-            .map(
-              (a) => Column(
-                children: [
-                  Text(a.title),
-                  Image.network(a.thumbnail['medium']['url'])
-                ],
+    return Container(
+        margin: EdgeInsets.all(8),
+        child: Column(
+          children: [
+            TextField(
+              style: TextStyle(fontSize: 16.0, color: Colors.black),
+              onChanged: (String value) {
+                if (value.length > 2) {
+                  this.search(value);
+                }
+              },
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(8.0),
+                hintText: "Search videos",
+                filled: true,
+                fillColor: Color.fromARGB(255, 247, 249, 249),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  borderSide: BorderSide(
+                      color: Color.fromARGB(255, 217, 224, 226), width: 1),
+                ),
               ),
-            )
-            .toList()
-      ],
-    );
+            ),
+            Container(
+                child: Column(
+                  children:
+                      ytResult.map((item) => YoutubeResult(item)).toList(),
+                ),
+                margin: EdgeInsets.only(top: 10))
+          ],
+        ));
   }
 }
 

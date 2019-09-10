@@ -56,7 +56,6 @@ class _MyHomePageState extends State<LoginRoute> {
     );
 
     final FirebaseUser user = (await _auth.signInWithCredential(credential));
-    print("signed in " + user.displayName);
     Provider.of<StateModel>(context, listen: false).setUser(user);
     return user;
   }
