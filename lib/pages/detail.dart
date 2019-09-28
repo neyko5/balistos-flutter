@@ -13,21 +13,16 @@ class DetailPage extends StatelessWidget {
 
   DetailPage({Key key, @required this.playlistId}) : super(key: key);
 
-  final List<Widget> _children = [
-    SearchSection(),
-    ListSection(),
-    ChatSection(),
-    RelatedSection(),
-  ];
+  List<Widget> _children() => [
+        SearchSection(this.playlistId),
+        ListSection(),
+        ChatSection(),
+        RelatedSection(),
+      ];
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    final List<Widget> children = _children();
     return Scaffold(
       appBar: BalistosAppBar(),
       body: SingleChildScrollView(
@@ -51,7 +46,7 @@ class DetailPage extends StatelessWidget {
                         PlaylistMain(snapshot.data),
                         Consumer<StateModel>(
                           builder: (context, state, child) {
-                            return _children[state.currentTabIndex];
+                            return children[state.currentTabIndex];
                           },
                         )
                       ],
@@ -100,11 +95,17 @@ class DetailPage extends StatelessWidget {
 }
 
 class SearchSection extends StatefulWidget {
+  final String playlistId;
+  SearchSection(this.playlistId);
+
   @override
-  SearchSectionState createState() => SearchSectionState();
+  SearchSectionState createState() => SearchSectionState(this.playlistId);
 }
 
 class SearchSectionState extends State<SearchSection> {
+  final String playlistId;
+  SearchSectionState(this.playlistId);
+
   static String key = 'AIzaSyB-2hx-NqmEzBUNNLRKISUfLxylg2wEfzs';
   YoutubeAPI ytApi = new YoutubeAPI(key);
   List ytResult = [];

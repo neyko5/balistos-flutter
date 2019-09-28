@@ -34,7 +34,7 @@ class PlaylistItem extends StatelessWidget {
                 this.playlistIndex.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    height: 1,
+                    height: 1.5,
                     fontWeight: FontWeight.w300,
                     color: Color.fromARGB(255, 117, 128, 0),
                     fontSize: 34),
