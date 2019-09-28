@@ -2,11 +2,15 @@ import 'package:balistos/models/state.model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'pages/home.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() => runApp(ChangeNotifierProvider(
-      builder: (context) => StateModel(),
-      child: MyApp(),
-    ));
+Future main() async {
+  await DotEnv().load('.env');
+  runApp(ChangeNotifierProvider(
+    builder: (context) => StateModel(),
+    child: MyApp(),
+  ));
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
