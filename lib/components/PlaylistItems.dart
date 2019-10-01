@@ -1,8 +1,8 @@
-import 'package:balistos/models/state.model.dart';
-import '../models/playlist.model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'PlaylistItem.dart';
+import '../models/state.model.dart';
+import '../models/playlist.model.dart';
+import './PlaylistItem.dart';
 
 class PlaylistItems extends StatelessWidget {
   final List<Playlist> playlists;

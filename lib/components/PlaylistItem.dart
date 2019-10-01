@@ -1,6 +1,6 @@
-import 'package:balistos/models/playlist.model.dart';
-import 'package:balistos/pages/detail.dart';
 import 'package:flutter/material.dart';
+import '../models/playlist.model.dart';
+import '../pages/detail.dart';
 
 class PlaylistItem extends StatelessWidget {
   final playlistIndex;

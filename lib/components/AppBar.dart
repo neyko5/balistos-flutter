@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'pages/login.dart';
-import 'pages/home.dart';
 import 'package:provider/provider.dart';
-import 'package:balistos/models/state.model.dart';
+import '../models/state.model.dart';
+import '../pages/login.dart';
 
 class BalistosAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -13,10 +12,9 @@ class BalistosAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: Image.asset('assets/images/logo.png'),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomePage()),
-          );
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
         },
         tooltip: "Balistos logo",
       ),

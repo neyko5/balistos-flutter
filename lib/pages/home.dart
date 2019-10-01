@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/Playlists.dart';
-import 'package:balistos/components/SearchPlaylist.dart';
-
-import '../appBar.dart';
+import '../components/SearchPlaylist.dart';
+import '../components/appBar.dart';
 
 class HomePage extends StatelessWidget {
   @override

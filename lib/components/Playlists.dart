@@ -1,7 +1,7 @@
-import 'package:balistos/models/playlist.model.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import './PlaylistItems.dart';
+import '../models/playlist.model.dart';
 
 class Playlists extends StatelessWidget {
   @override
