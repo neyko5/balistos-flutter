@@ -36,12 +36,12 @@ class _MyHomePageState extends State<LoginRoute> {
 
   void _handleSignIn() async {
     _formKey.currentState.save();
-    final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
+    final AuthResult result = (await _auth.createUserWithEmailAndPassword(
       email: _data.email,
       password: _data.password,
     ));
     setState(() {
-      this.user = user;
+      this.user = result.user;
     });
   }
 
@@ -55,9 +55,9 @@ class _MyHomePageState extends State<LoginRoute> {
       idToken: googleAuth.idToken,
     );
 
-    final FirebaseUser user = (await _auth.signInWithCredential(credential));
-    Provider.of<StateModel>(context, listen: false).setUser(user);
-    return user;
+    final AuthResult result  = (await _auth.signInWithCredential(credential));
+    Provider.of<StateModel>(context, listen: false).setUser(result.user);
+    return result.user;
   }
 
   @override

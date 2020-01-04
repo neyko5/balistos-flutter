@@ -6,10 +6,7 @@ import './models/state.model.dart';
 
 Future main() async {
   await DotEnv().load('.env');
-  runApp(ChangeNotifierProvider(
-    builder: (context) => StateModel(),
-    child: BalistosApp(),
-  ));
+  runApp(BalistosApp());
 }
 
 class BalistosApp extends StatelessWidget {
@@ -22,7 +19,10 @@ class BalistosApp extends StatelessWidget {
         fontFamily: "Open Sans",
         primarySwatch: Colors.blue,
       ),
-      home: new HomePage(),
+      home: ChangeNotifierProvider<StateModel>(
+        create: (_) => StateModel(),
+        child: HomePage(),
+      ),
     );
   }
 }
